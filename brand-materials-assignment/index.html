@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future of Advanced Materials</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --purple: #7c3aed;
+      --bg: #060608;
+      --surface: #0d0d12;
+      --card: #111118;
+      --card2: #16161f;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0f0f5;
+      --muted: #6b6b80;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 64px;
+      background: rgba(6,6,8,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1.1rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 0.5rem 1.2rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover { border-color: var(--orange); background: rgba(249,115,22,0.08); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 40%, #2a0a4a 0%, transparent 65%),
+                  radial-gradient(ellipse 40% 50% at 50% 60%, #1a0630 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    /* Animated light curtain lines */
+    .hero-lines {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-lines::before,
+    .hero-lines::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent 0%, #f97316 30%, #9333ea 60%, transparent 100%);
+      animation: linePulse 4s ease-in-out infinite;
+    }
+
+    .hero-lines::before { left: calc(50% - 80px); animation-delay: 0s; opacity: 0.6; }
+    .hero-lines::after  { left: calc(50% + 80px); animation-delay: 1s; opacity: 0.4; }
+
+    @keyframes linePulse {
+      0%,100% { opacity: 0.15; transform: scaleY(1); }
+      50% { opacity: 0.7; transform: scaleY(1.05); }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 640px; }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 420px;
+      margin: 0 auto 2rem;
+      animation: fadeUp 0.9s 0.15s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Left accent line on page */
+    .accent-line {
+      position: absolute;
+      left: clamp(1rem, 4vw, 3rem);
+      top: 55%;
+      width: 3px;
+      height: 220px;
+      background: linear-gradient(to bottom, var(--orange), var(--purple), transparent);
+      border-radius: 2px;
+      z-index: 1;
+      animation: lineGrow 1.2s 0.4s ease both;
+    }
+
+    @keyframes lineGrow {
+      from { height: 0; opacity: 0; }
+      to   { height: 220px; opacity: 1; }
+    }
+
+    /* ─── TRUST STRIP ─── */
+    #trust {
+      padding: 3rem clamp(1.5rem, 6vw, 5rem);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 5rem;
+      align-items: start;
+    }
+
+    .trust-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .trust-text em { color: var(--muted); font-style: normal; }
+
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      grid-column: 1 / -1;
+    }
+
+    .logo-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      min-height: 70px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .logo-card:hover { border-color: rgba(249,115,22,0.3); background: var(--card2); }
+
+    .logo-card svg, .logo-card span {
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      opacity: 0.85;
+    }
+
+    /* ─── ABOUT PURPLE ─── */
+    #about {
+      position: relative;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, #3b0d6e 0%, #1a0a3d 40%, #060608 100%);
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 6vw, 5rem);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #about::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(124,58,237,0.08));
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .about-inner { position: relative; z-index: 1; max-width: 500px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .about-body { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.8rem; }
+
+    /* ─── SOLUTIONS ─── */
+    #solutions {
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 6vw, 5rem);
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .solution-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem 3rem;
+      align-items: start;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .solution-row:last-child { border-bottom: none; }
+
+    .solution-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .solution-logo .icon-box {
+      width: 42px; height: 42px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .solution-logo span {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    .solution-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .solution-info p { color: var(--muted); font-size: 0.82rem; line-height: 1.6; margin-bottom: 1rem; }
+
+    /* ─── LUMINESCENCE BANNER ─── */
+    #luminescence {
+      position: relative;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .bubbles-bg {
+      position: absolute;
+      inset: 0;
+      background: #050508;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(180,100,255,0.6), rgba(50,200,255,0.3) 40%, rgba(255,100,50,0.15) 70%, transparent 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .bubble:nth-child(1) { width: 180px; height: 180px; top: 10%; left: 5%; animation-delay: 0s; }
+    .bubble:nth-child(2) { width: 120px; height: 120px; top: 50%; left: 25%; animation-delay: 1.5s; }
+    .bubble:nth-child(3) { width: 200px; height: 200px; top: 20%; left: 45%; animation-delay: 0.8s; }
+    .bubble:nth-child(4) { width: 90px;  height: 90px;  top: 60%; left: 65%; animation-delay: 2s; }
+    .bubble:nth-child(5) { width: 150px; height: 150px; top: 5%;  left: 75%; animation-delay: 0.4s; }
+    .bubble:nth-child(6) { width: 70px;  height: 70px;  top: 70%; left: 85%; animation-delay: 3s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); }
+      33% { transform: translateY(-18px) scale(1.03); }
+      66% { transform: translateY(10px) scale(0.97); }
+    }
+
+    .luminescence-text {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      max-width: 700px;
+      padding: 2rem 1.5rem;
+      line-height: 1.25;
+    }
+
+    /* ─── CURVED BORDER DECORATION ─── */
+    .border-decoration {
+      position: absolute;
+      top: -1px; right: 0;
+      width: 200px; height: 200px;
+      border-top: 2px solid transparent;
+      border-right: 2px solid transparent;
+      border-image: linear-gradient(135deg, var(--orange), var(--purple)) 1;
+      border-radius: 0 0 0 60px;
+      pointer-events: none;
+    }
+
+    /* ─── SCIENCE CARDS ─── */
+    #science {
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 6vw, 5rem);
+    }
+
+    .science-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .science-header h2 { max-width: 380px; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .sci-card {
+      border-radius: 14px;
+      padding: 1.6rem;
+      min-height: 220px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .sci-card:hover { transform: translateY(-4px); border-color: rgba(249,115,22,0.25); }
+
+    .sci-card h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .sci-card p { color: var(--muted); font-size: 0.78rem; line-height: 1.6; }
+
+    .sci-card.synthesis {
+      background: linear-gradient(135deg, #0e0e1a 0%, #1a1240 40%, #2d0d5a 100%);
+    }
+
+    .sci-card.formulations {
+      background: linear-gradient(135deg, #0e0e1a 0%, #1c1010 40%, #3a1500 100%);
+    }
+
+    .sci-card.diverse {
+      background: linear-gradient(135deg, #091a09 0%, #0e2a10 40%, #1a4020 100%);
+    }
+
+    .sci-card.manipulation {
+      background: linear-gradient(135deg, #0e0e1a 0%, #1a1040 60%, #2a0870 100%);
+    }
+
+    /* ─── SUSTAINABILITY ─── */
+    #sustainability {
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 6vw, 5rem);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    #sustainability h2 { margin-bottom: 1rem; }
+    #sustainability p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.8rem; }
+
+    .sust-image {
+      position: relative;
+      height: 320px;
+      background: radial-gradient(circle at 50% 50%, #2a2a3a, #0a0a0f);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Iridescent sphere effect */
+    .sphere {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #e879f9, #818cf8, #22d3ee, #34d399, #fbbf24, #f97316, #e879f9);
+      filter: blur(0px) brightness(0.8);
+      position: relative;
+    }
+
+    .sphere::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.4), transparent 60%);
+    }
+
+    /* curved orange line decoration */
+    .orange-curve {
+      position: absolute;
+      right: 0; bottom: 0;
+      width: 120px; height: 120px;
+      border-bottom: 2px solid var(--orange);
+      border-right: 2px solid var(--orange);
+      border-radius: 0 0 60px 0;
+      pointer-events: none;
+    }
+
+    /* ─── NEWS ─── */
+    #news {
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 6vw, 5rem);
+      position: relative;
+    }
+
+    #news::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 80%, rgba(100,30,200,0.12), transparent 60%);
+      pointer-events: none;
+    }
+
+    #news h2 { text-align: center; margin-bottom: 2rem; }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .news-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .news-card:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-3px); }
+
+    .news-date {
+      font-size: 0.7rem;
+      color: var(--orange);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .news-card h4 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+    }
+
+    .news-card p { color: var(--muted); font-size: 0.78rem; line-height: 1.6; margin-bottom: 0.8rem; }
+
+    .read-more {
+      font-size: 0.75rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .read-more:hover { color: var(--orange); border-color: var(--orange); }
+
+    /* ─── CTA + LINKS ─── */
+    #cta-section {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 280px;
+      overflow: hidden;
+    }
+
+    .cta-left {
+      position: relative;
+      padding: clamp(2rem, 5vw, 3.5rem);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a0a3a, #0e1040, #1a0628);
+      z-index: 0;
+    }
+
+    /* Fluid/liquid blobs bg */
+    .cta-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.6;
+      animation: blobMove 10s ease-in-out infinite alternate;
+    }
+
+    .cta-blob-1 {
+      width: 250px; height: 250px;
+      background: radial-gradient(#7c3aed, #4f46e5);
+      top: -50px; left: -50px;
+    }
+
+    .cta-blob-2 {
+      width: 200px; height: 200px;
+      background: radial-gradient(#f97316, #db2777);
+      bottom: -60px; right: 20px;
+      animation-delay: -5s;
+    }
+
+    @keyframes blobMove {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.1); }
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-content h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-content p { color: rgba(255,255,255,0.7); font-size: 0.82rem; margin-bottom: 1.5rem; }
+
+    .cta-links {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cta-link-item {
+      flex: 1;
+      border-left: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(20,20,30,0.5);
+      cursor: pointer;
+      transition: background 0.25s;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .cta-link-item:last-child { border-bottom: none; }
+
+    .cta-link-item:hover { background: rgba(249,115,22,0.08); }
+
+    .cta-link-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .arrow-circle {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .cta-link-item:hover .arrow-circle {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2rem 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-desc { color: var(--muted); font-size: 0.78rem; line-height: 1.65; margin-bottom: 1rem; }
+
+    .social-links { display: flex; gap: 0.6rem; }
+
+    .social-link {
+      width: 30px; height: 30px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.7rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-link:hover { border-color: var(--orange); color: var(--orange); }
+
+    .footer-col h5 {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.78rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--text); }
+
+    .footer-contact {
+      display: flex;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-contact-item { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(6,6,8,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.7rem 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      nav .btn-primary { display: none; }
+      .hamburger { display: flex; }
+
+      #trust { grid-template-columns: 1fr; gap: 2rem; }
+      .logo-grid { grid-template-columns: repeat(4, 1fr); }
+
+      #sustainability { grid-template-columns: 1fr; }
+      .sust-image { height: 220px; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-contact { flex-direction: column; gap: 0.5rem; }
+    }
+
+    @media (max-width: 640px) {
+      .logo-grid { grid-template-columns: repeat(2, 1fr); }
+      .solution-row { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
+      #cta-section { grid-template-columns: 1fr; }
+      .cta-links { flex-direction: row; }
+      .cta-link-item { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav role="banner">
+  <a href="#" class="nav-logo" aria-label="Brand Logo">LOGO</a>
+  <ul class="nav-links" role="navigation" aria-label="Primary navigation">
+    <li><a href="#about">Who We Are</a></li>
+    <li><a href="#solutions">Technology</a></li>
+    <li><a href="#science">Solutions</a></li>
+    <li><a href="#news">Newsroom</a></li>
+    <li><a href="#cta-section">Careers</a></li>
+  </ul>
+  <a href="#cta-section" class="btn-primary" aria-label="Get Started">Get Started ↗</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="#about">Who We Are</a>
+  <a href="#solutions">Technology</a>
+  <a href="#science">Solutions</a>
+  <a href="#news">Newsroom</a>
+  <a href="#cta-section">Careers</a>
+  <a href="#cta-section" class="btn-primary" style="margin-top:0.5rem; width:fit-content">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<main>
+<section id="hero" aria-label="Hero section">
+  <div class="hero-bg"></div>
+  <div class="hero-lines" aria-hidden="true"></div>
+  <div class="accent-line" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <h1>Future of Advanced<br>Materials</h1>
+    <p class="hero-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et.</p>
+    <a href="#about" class="btn-primary" style="margin: 0 auto; animation: fadeUp 0.9s 0.3s ease both;" aria-label="Get Started">Get Started</a>
+  </div>
+</section>
+
+<!-- TRUST / LOGOS -->
+<section id="trust" aria-label="Partners and trusted by">
+  <div class="trust-text reveal">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod <em>sectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et Lorem ipsum dolor sit amet.</em>
+  </div>
+  <div></div>
+  <div class="logo-grid reveal" aria-label="Partner logos">
+    <div class="logo-card">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="6" cy="6" r="2" fill="white"/><circle cx="12" cy="6" r="2" fill="white"/><circle cx="18" cy="6" r="2" fill="white"/>
+        <circle cx="6" cy="12" r="2" fill="white"/><circle cx="12" cy="12" r="2" fill="white"/><circle cx="18" cy="12" r="2" fill="white"/>
+        <circle cx="6" cy="18" r="2" fill="white"/><circle cx="12" cy="18" r="2" fill="white"/><circle cx="18" cy="18" r="2" fill="white"/>
+      </svg>
+    </div>
+    <div class="logo-card"><span style="font-style:italic">ïdylle</span></div>
+    <div class="logo-card"><span style="font-family:Georgia,serif; font-size:1.4rem">M</span></div>
+    <div class="logo-card"><span style="font-style:italic">ïdylle</span></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" aria-labelledby="about-heading">
+  <div class="about-inner reveal">
+    <p class="section-label">About Brand</p>
+    <h2 id="about-heading">Our Journey Towards Innovation and Excellence</h2>
+    <p class="about-body">Brand is an advanced bio-luminescent materials company. Having a complex of first-edge materials to deliver solutions. Visit for particulars.</p>
+    <a href="#solutions" class="btn-outline">About Brand</a>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions" aria-labelledby="solutions-heading">
+  <div class="section-header reveal">
+    <h2 id="solutions-heading">Advanced Materials and<br>Integrative Solutions</h2>
+  </div>
+
+  <div class="solution-row reveal">
+    <div class="solution-logo">
+      <div class="icon-box" aria-hidden="true">
+        <span style="font-style:italic; font-size:0.8rem">ïdylle</span>
+      </div>
+    </div>
+    <div class="solution-info">
+      <h3>Securing every physical product for counterfeit protection.</h3>
+      <p>Floyd™ makes it easy for brand owners and governments to effectively identify counterfeits, secure revenues and preserve brand integrity.</p>
+      <a href="#" class="btn-primary" aria-label="Learn More about counterfeit protection">Learn More</a>
+    </div>
+  </div>
+
+  <div class="solution-row reveal">
+    <div class="solution-logo">
+      <div class="icon-box" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="2" fill="white" opacity="0.7"/><circle cx="12" cy="6" r="2" fill="white" opacity="0.7"/><circle cx="18" cy="6" r="2" fill="white" opacity="0.7"/>
+          <circle cx="6" cy="12" r="2" fill="white" opacity="0.7"/><circle cx="12" cy="12" r="2" fill="white" opacity="0.7"/><circle cx="18" cy="12" r="2" fill="white" opacity="0.7"/>
+          <circle cx="6" cy="18" r="2" fill="white" opacity="0.7"/><circle cx="12" cy="18" r="2" fill="white" opacity="0.7"/><circle cx="18" cy="18" r="2" fill="white" opacity="0.7"/>
+        </svg>
+      </div>
+    </div>
+    <div class="solution-info">
+      <h3>Accelerating biomedical research with next-generation bio-probes</h3>
+      <p>Luminoah empowers researchers to achieve breakthroughs at a faster pace by pioneering high-end imaging and deep tissue bio-imaging.</p>
+      <a href="#" class="btn-primary" aria-label="Learn More about bio-probes">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- LUMINESCENCE BANNER -->
+<section id="luminescence" aria-label="Luminescence banner">
+  <div class="bubbles-bg" aria-hidden="true">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+  <p class="luminescence-text reveal">Revolutionizing luminescence to power the next generation of technology</p>
+</section>
+
+<!-- SCIENCE CARDS -->
+<section id="science" aria-labelledby="science-heading">
+  <div class="science-header">
+    <h2 id="science-heading" class="reveal">The Science Behind Our<br>Innovative Solutions</h2>
+    <a href="#" class="btn-primary reveal" style="align-self:flex-start; margin-top:0.3rem" aria-label="Learn More about science">Learn More</a>
+  </div>
+
+  <div class="cards-grid">
+    <article class="sci-card synthesis reveal" aria-label="Synthesis">
+      <div>
+        <h4>Synthesis</h4>
+        <p>Lorem dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+      </div>
+      <p style="font-size:0.75rem; color: rgba(180,160,255,0.6)">consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut et dolore magna aliqua.</p>
+    </article>
+
+    <article class="sci-card formulations reveal" aria-label="Formulations">
+      <div>
+        <h4>Formulations</h4>
+        <p>Lorem dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+      </div>
+      <p style="font-size:0.75rem; color: rgba(255,180,120,0.6)">consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+    </article>
+
+    <article class="sci-card diverse reveal" aria-label="Diverse Materials">
+      <div>
+        <h4>Diverse Materials</h4>
+        <p>Lorem dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <p style="font-size:0.75rem; color: rgba(120,220,150,0.6)">consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut et dolore magna aliqua.</p>
+    </article>
+
+    <article class="sci-card manipulation reveal" aria-label="Manipulation of Light">
+      <div>
+        <h4>Manipulation of Light</h4>
+        <p>Lorem dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <p style="font-size:0.75rem; color: rgba(160,140,255,0.6)">consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+    </article>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY -->
+<section id="sustainability" aria-labelledby="sustainability-heading">
+  <div class="reveal">
+    <h2 id="sustainability-heading">Sustainability at the heart<br>of Innovation</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing tempor incididunt ut labore et dolore ut dolore magnus.</p>
+    <a href="#" class="btn-outline" aria-label="See the Details">See the Details</a>
+  </div>
+  <div class="sust-image reveal" aria-label="Iridescent sphere illustration">
+    <div class="sphere" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news" aria-labelledby="news-heading">
+  <h2 id="news-heading" class="reveal">What's New at Brand</h2>
+  <div class="news-grid">
+    <article class="news-card reveal">
+      <p class="news-date">March 09, 2022</p>
+      <h4>Brand Unveils Breakthrough in Product Authentication Technology</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt, consectetur.</p>
+      <a href="#" class="read-more" aria-label="Read more about product authentication">Read More</a>
+    </article>
+
+    <article class="news-card reveal">
+      <p class="news-date">March 08, 2025</p>
+      <h4>LumiLab — Exploring the science and innovation behind luminescent materials.</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt, consectetur.</p>
+      <a href="#" class="read-more" aria-label="Read more about LumiLab">Read More</a>
+    </article>
+
+    <article class="news-card reveal">
+      <p class="news-date">March 08, 2025</p>
+      <h4>The Blow Factor — Trends, discoveries, and applications in photonic materials.</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, consectetur adipiscing.</p>
+      <a href="#" class="read-more" aria-label="Read more about photonic materials">Read More</a>
+    </article>
+
+    <article class="news-card reveal">
+      <p class="news-date">March 09, 2022</p>
+      <h4>Brand Unveils Breakthrough in Product Authentication Technology</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt, consectetur.</p>
+      <a href="#" class="read-more" aria-label="Read more">Read More</a>
+    </article>
+  </div>
+</section>
+
+<!-- CTA + LINKS -->
+<section id="cta-section" aria-label="Contact and links">
+  <div class="cta-left">
+    <div class="cta-bg" aria-hidden="true">
+      <div class="cta-blob cta-blob-1"></div>
+      <div class="cta-blob cta-blob-2"></div>
+    </div>
+    <div class="cta-content reveal">
+      <h2>Have Questions?<br>Let's Talk!</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, lorem ipsum consectetur.</p>
+      <a href="#" class="btn-outline" aria-label="Get Started">Get Started</a>
+    </div>
+  </div>
+
+  <div class="cta-links" role="navigation" aria-label="Quick links">
+    <a href="#" class="cta-link-item" aria-label="Partnerships">
+      <h3>Partnerships</h3>
+      <div class="arrow-circle" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 7h10M8 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+    <a href="#cta-section" class="cta-link-item" aria-label="Careers">
+      <h3>Careers</h3>
+      <div class="arrow-circle" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 7h10M8 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-contact">
+    <span class="footer-contact-item">info@brand.com</span>
+    <span class="footer-contact-item">+65 8808 2199</span>
+  </div>
+
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">LOGO</div>
+      <p class="footer-desc">Lorem ipsum dolor sit amet, consectetur adipiscing ipsum.</p>
+      <div class="social-links" aria-label="Social media links">
+        <a href="#" class="social-link" aria-label="Facebook">f</a>
+        <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+        <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+
+    <nav class="footer-col" aria-label="Nature links">
+      <h5>Nature</h5>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Carnival</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Solutions links">
+      <h5>Solutions</h5>
+      <ul>
+        <li><a href="#">Bio Market</a></li>
+        <li><a href="#">Technology</a></li>
+        <li><a href="#">Newsroom</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Who We Are links">
+      <h5>Who We Are</h5>
+      <ul>
+        <li><a href="#">Brand's Alliance</a></li>
+        <li><a href="#">About Brand</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Portfolios</a></li>
+        <li><a href="#">Sustainability &amp; Brand report</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Brand. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth navbar shadow on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20
+      ? '0 4px 30px rgba(0,0,0,0.5)'
+      : 'none';
+  });
+</script>
+</body>
+</html>
